@@ -9,10 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".Peliculas" />
-        <activity android:name=".Libros" />
-        <activity android:name=".Animes" />
-        <activity android:name=".Series" />
+        <activity android:name=".Peliculas"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".Libros"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".Animes"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".Series"
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
