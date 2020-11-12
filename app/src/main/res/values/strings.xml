@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Series</string>
+    <string name="series">Series</string>
+    <string name="peliculas">Peliculas</string>
+    <string name="animes">Animes</string>
+    <string name="libros">Libros</string>
+    <string name="name">Name</string>
+    <string name="plus">+</string>
+</resources>
