@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.freed.series.interfaces.Nombre;
+import com.freed.series.interfaces.Total;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,38 +34,28 @@ public class FirebaseHelper {
 
         db.collection("animes").document(UUID.randomUUID().toString())
                 .set(data)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(context,"Agregado" , Toast.LENGTH_LONG).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(context,"Error" , Toast.LENGTH_LONG).show();
-                    }
-                });
+                .addOnSuccessListener(aVoid -> Toast.makeText(context,"Agregado" , Toast.LENGTH_LONG).show())
+                .addOnFailureListener(e -> Toast.makeText(context,"Error" , Toast.LENGTH_LONG).show());
 
-    }public void GetAnime(final Context context , Nombre nombre){
+    }public void GetAnime(final Context context , Nombre nombre, Total total){
 
         final List<String> proyectosLista = new ArrayList<>();
 
         db.collection("animes")
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        int contador = 0;
+                        for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
 
-                                proyectosLista.add((String) document.get("name"));
-                            }
-                            nombre.getAll(proyectosLista);
-                        } else {
-
-                            Toast.makeText(context,"Error al conectar a la base de datos anime",Toast.LENGTH_SHORT).show();
+                            proyectosLista.add((String) document.get("name"));
+                            contador++;
                         }
+                        nombre.getAll(proyectosLista);
+                        total.getAll(String.valueOf(contador));
+                    } else {
+
+                        Toast.makeText(context,"Error al conectar a la base de datos anime",Toast.LENGTH_SHORT).show();
                     }
                 });
 
