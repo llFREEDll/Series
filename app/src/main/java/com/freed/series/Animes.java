@@ -28,6 +28,7 @@ public class Animes extends AppCompatActivity implements Nombre , Total {
     private ArrayAdapter<String> stringArrayAdapter;
     private List<String> listaanimes;
     private TextView textView_total;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -40,11 +41,11 @@ public class Animes extends AppCompatActivity implements Nombre , Total {
         textView_total = findViewById(R.id.textView_animes);
 
 
-        firebaseHelper.GetAnime(getApplicationContext(),Animes.this , Animes.this);
+        firebaseHelper.GetList(getApplicationContext(),Animes.this , Animes.this, "animes");
         findViewById(R.id.cardView_anime_Add).setOnClickListener(v -> {
 
-            firebaseHelper.SetAnime(editText_animes.getText().toString(),Animes.this);
-            firebaseHelper.GetAnime(getApplicationContext(),Animes.this , Animes.this);
+            firebaseHelper.SetFB(editText_animes.getText().toString(),"animes" ,Animes.this);
+            firebaseHelper.GetList(getApplicationContext(),Animes.this , Animes.this, "animes");
 
         });
     }

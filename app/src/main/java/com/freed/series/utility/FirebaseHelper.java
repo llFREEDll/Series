@@ -28,20 +28,20 @@ public class FirebaseHelper {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public void SetAnime(String anime , Context context){
+    public void SetFB(String anime ,String coleccion, Context context){
         Map<String, Object> data = new HashMap<>();
         data.put("name", anime);
 
-        db.collection("animes").document(UUID.randomUUID().toString())
+        db.collection(coleccion).document(UUID.randomUUID().toString())
                 .set(data)
                 .addOnSuccessListener(aVoid -> Toast.makeText(context,"Agregado" , Toast.LENGTH_LONG).show())
                 .addOnFailureListener(e -> Toast.makeText(context,"Error" , Toast.LENGTH_LONG).show());
 
-    }public void GetAnime(final Context context , Nombre nombre, Total total){
+    }public void GetList(final Context context , Nombre nombre, Total total, String coleccion){
 
         final List<String> proyectosLista = new ArrayList<>();
 
-        db.collection("animes")
+        db.collection(coleccion)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
